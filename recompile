@@ -57,8 +57,8 @@ toolchain_path="/usr/local/toolchain"
 # When set to [ -r kernel.org ], Kernel download from kernel.org
 kernel_org_repo="https://cdn.kernel.org/pub/linux/kernel/v5.x/"
 # Set the default for downloading kernel sources from github.com
-repo_owner="unifreq"
-repo_branch="main"
+repo_owner="livelier"
+repo_branch="latest"
 build_kernel=("5.10.125" "5.15.50")
 auto_kernel="true"
 custom_name="-ophub"
@@ -284,7 +284,7 @@ get_kernel_source() {
             fi
         else
             echo -e "${INFO} Start cloning from [ https://github.com/${server_kernel_repo} -b ${code_branch} ]"
-            git clone --depth 1 https://github.com/${server_kernel_repo} -b ${code_branch} ${kernel_path}/${local_kernel_path}
+            git clone -q --single-branch --depth 1 https://github.com/${server_kernel_repo} -b ${code_branch} ${kernel_path}/${local_kernel_path}
             [[ "${?}" -eq "0" ]] || error_msg "[ https://github.com/${server_kernel_repo} ] Clone failed."
         fi
     elif [ "${code_owner}" != "kernel.org" ]; then
